@@ -35,4 +35,12 @@ docker run -d --net=host --rm \
 
 
 
+docker run -d --net=host --rm \
+    --name querier \
+    quay.io/thanos/thanos:v0.28.0 \
+    query \
+    --http-address 0.0.0.0:9091 \
+    --query.replica-label replica \
+    --store 172.17.0.1:19190
 
+#####################################################################
