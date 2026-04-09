@@ -22,4 +22,17 @@ docker run -d --net=host --rm \
 
 #####################################################################
 
+docker run -d --net=host --rm \
+    --name prometheus-0-eu1-sidecar \
+    -u root \
+    quay.io/thanos/thanos:v0.28.0 \
+    sidecar \
+    --http-address 0.0.0.0:19090 \
+    --grpc-address 0.0.0.0:19190 \
+    --prometheus.url http://172.17.0.1:9090
+
+#####################################################################
+
+
+
 
