@@ -2,3 +2,24 @@
 
 mkdir -p /root/prom-eu1 && docker run -i quay.io/thanos/thanosbench:v0.2.0-rc.1 block plan -p continuous-365d-tiny --labels 'cluster="eu1"' --max-time=6h | docker run -v /root/prom-eu1:/prom-eu1 -i quay.io/thanos/thanosbench:v0.2.0-rc.1 block gen --output.dir prom-eu1
 
+#####################################################################
+
+docker run -d --net=host --rm \
+    -v $(pwd)/prometheus0_eu1.yml:/etc/prometheus/prometheus.yml \
+    -v $(pwd)/prom-eu1:/prometheus \
+    -u root \
+    --name prometheus-0-eu1 \
+    quay.io/prometheus/prometheus:v2.38.0 \
+    --config.file=/etc/prometheus/prometheus.yml \
+    --storage.tsdb.retention.time=1000d \
+    --storage.tsdb.path=/prometheus \
+    --storage.tsdb.max-block-duration=2h \
+    --storage.tsdb.min-block-duration=2h \
+    --web.listen-address=:9090 \
+    --web.external-url=https://92448f1c290f-10-244-6-42-9090.spca.r.killercoda.com \
+    --web.enable-lifecycle \
+    --web.enable-admin-api
+
+#####################################################################
+
+
