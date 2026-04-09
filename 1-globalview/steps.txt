@@ -1,1 +1,52 @@
 #############################
+mkdir -p prometheus0_eu1_data prometheus0_us1_data prometheus1_us1_data
+
+
+#############################
+docker run -d --net=host --rm \
+    -v $(pwd)/prometheus0_eu1.yml:/etc/prometheus/prometheus.yml \
+    -v $(pwd)/prometheus0_eu1_data:/prometheus \
+    -u root \
+    --name prometheus-0-eu1 \
+    quay.io/prometheus/prometheus:v2.38.0 \
+    --config.file=/etc/prometheus/prometheus.yml \
+    --storage.tsdb.path=/prometheus \
+    --web.listen-address=:9090 \
+    --web.external-url=https://c4726a2e7fc4-10-244-8-25-9090.spca.r.killercoda.com \
+    --web.enable-lifecycle \
+    --web.enable-admin-api && echo "Prometheus EU1 started!"
+
+#############################
+
+
+docker run -d --net=host --rm \
+    -v $(pwd)/prometheus0_us1.yml:/etc/prometheus/prometheus.yml \
+    -v $(pwd)/prometheus0_us1_data:/prometheus \
+    -u root \
+    --name prometheus-0-us1 \
+    quay.io/prometheus/prometheus:v2.38.0 \
+    --config.file=/etc/prometheus/prometheus.yml \
+    --storage.tsdb.path=/prometheus \
+    --web.listen-address=:9091 \
+    --web.external-url=https://c4726a2e7fc4-10-244-8-25-9091.spca.r.killercoda.com \
+    --web.enable-lifecycle \
+    --web.enable-admin-api && echo "Prometheus 0 US1 started!"
+
+#############################
+
+docker run -d --net=host --rm \
+    -v $(pwd)/prometheus1_us1.yml:/etc/prometheus/prometheus.yml \
+    -v $(pwd)/prometheus1_us1_data:/prometheus \
+    -u root \
+    --name prometheus-1-us1 \
+    quay.io/prometheus/prometheus:v2.38.0 \
+    --config.file=/etc/prometheus/prometheus.yml \
+    --storage.tsdb.path=/prometheus \
+    --web.listen-address=:9092 \
+    --web.external-url=https://c4726a2e7fc4-10-244-8-25-9092.spca.r.killercoda.com \
+    --web.enable-lifecycle \
+    --web.enable-admin-api && echo "Prometheus 1 US1 started!"
+
+#######################################################################################
+
+
