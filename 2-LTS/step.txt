@@ -44,3 +44,18 @@ docker run -d --net=host --rm \
     --store 172.17.0.1:19190
 
 #####################################################################
+
+# MINIO STORAGE 
+
+mkdir /root/minio && \
+docker run -d --rm --name minio \
+     -v /root/minio:/data \
+     -p 9000:9000 -e "MINIO_ACCESS_KEY=minio" -e "MINIO_SECRET_KEY=melovethanos" \
+     minio/minio:RELEASE.2019-01-31T00-31-19Z \
+     server /data
+#####################################################################
+
+mkdir /root/minio/thanos
+
+#####################################################################
+
