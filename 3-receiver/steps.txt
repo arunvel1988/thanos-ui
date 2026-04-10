@@ -1,6 +1,24 @@
 ################################################
 
 
+docker run -d --net=host --rm \
+    -v /root/editor/prometheus-batcave.yaml:/etc/prometheus/prometheus.yaml \
+    -v /root/prometheus-batcave-data:/prometheus \
+    -u root \
+    --name prometheus-batcave \
+    quay.io/prometheus/prometheus:v2.38.0 \
+    --config.file=/etc/prometheus/prometheus.yaml \
+    --storage.tsdb.path=/prometheus \
+    --web.listen-address=:9090 \
+    --web.external-url=https://91d33dd2c58a-10-244-3-248-9090.papa.r.killercoda.com \
+    --web.enable-lifecycle
+
+################################################
+
+
+
+
+
 
 
 
