@@ -48,11 +48,17 @@ docker run -d --rm \
     --remote-write.address 172.17.0.1:10908
 
 ################################################
+### THANOS QUERY ######
 
+docker run -d --rm \
+    --net=host \
+    --name query \
+    quay.io/thanos/thanos:v0.28.0 \
+    query \
+    --http-address "0.0.0.0:39090" \
+    --store "172.17.0.1:10907"
 
-
-
-
+################################################
 
 
     
