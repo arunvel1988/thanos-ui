@@ -16,6 +16,24 @@ docker run -d --net=host --rm \
 ################################################
 
 
+docker run -d --net=host --rm \
+    -v /root/editor/prometheus-batcomputer.yaml:/etc/prometheus/prometheus.yaml \
+    -v /root/prometheus-batcomputer:/prometheus \
+    -u root \
+    --name prometheus-batcomputer \
+    quay.io/prometheus/prometheus:v2.38.0 \
+    --config.file=/etc/prometheus/prometheus.yaml \
+    --storage.tsdb.path=/prometheus \
+    --web.listen-address=:9091 \
+    --web.external-url=https://2886795291-9091-elsy05 \
+    --web.enable-lifecycle
+
+
+################################################
+
+
+
+
 
 
 
