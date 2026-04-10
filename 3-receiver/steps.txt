@@ -1,3 +1,4 @@
+before that ....setup pre-erq which is to run steps.txt of 1-globalview
 ################################################
 
 
